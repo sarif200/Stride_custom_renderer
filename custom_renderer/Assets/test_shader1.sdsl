@@ -1,0 +1,20 @@
+﻿
+
+shader test_shader1 :  ShaderBase, Transformation, PositionStream4
+{
+ 
+    [Color]
+    stage float4 Color;
+    
+    //vertex shader
+    stage override void VSMain()
+    { 
+        streams.ShadingPosition = mul(streams.Position, WorldViewProjection);
+    }
+
+    //pixel shader
+    stage override void PSMain()
+    {
+        streams.ColorTarget = Color;
+    }
+};
