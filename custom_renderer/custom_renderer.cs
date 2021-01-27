@@ -46,7 +46,7 @@ namespace custom_renderer
             drawContext.CommandList.Clear(drawContext.CommandList.RenderTarget, Color.Green);
             drawContext.CommandList.Clear(drawContext.CommandList.DepthStencilBuffer, DepthStencilClearOptions.DepthBuffer);
 
-            myCustomShader.Parameters.Set(TransformationKeys.WorldViewProjection, viewprojection * WorldMatrix);
+            //myCustomShader.Parameters.Set(TransformationKeys.WorldViewProjection, viewprojection * WorldMatrix);
             myCustomShader.Parameters.Set(test_shader1Keys.Color, Color.Red);
 
             pipelineState.State.RootSignature = myCustomShader.RootSignature;
