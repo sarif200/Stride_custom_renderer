@@ -16,7 +16,7 @@ namespace custom_renderer
         private MutablePipelineState pipelineState;
         private DynamicEffectInstance myCustomShader;
         public Matrix WorldMatrix = Matrix.Identity;
-        private Matrix viewprojection = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        //private Matrix viewprojection = new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
 
         protected override void InitializeCore()
@@ -39,14 +39,14 @@ namespace custom_renderer
             var commandList = drawContext.GraphicsContext.CommandList;
             myCustomShader.UpdateEffect(graphicsDevice);
             var normal = new Vector3(1, 0, 0);
-            VertexBuffer = Buffer.New(graphicsDevice, new[] { new VertexPositionNormalColor(new Vector3(-0.5f, 0, 0), normal, Color.Red), new VertexPositionNormalColor(new Vector3(0.5f, 0.5f, 0), normal, Color.Red), new VertexPositionNormalColor(new Vector3(0, 0, 0), normal, Color.Red), }, BufferFlags.VertexBuffer, GraphicsResourceUsage.Immutable);
+            VertexBuffer = Buffer.New(graphicsDevice, new[] { new VertexPositionNormalColor(new Vector3(-0.5f, -0.5f, 0.5f), normal, Color.Red), new VertexPositionNormalColor(new Vector3(0, 0.4f, -0.5f), normal, Color.Red), new VertexPositionNormalColor(new Vector3(10, 10f, 0f), normal, Color.Red), }, BufferFlags.VertexBuffer, GraphicsResourceUsage.Immutable);
 
 
 
             drawContext.CommandList.Clear(drawContext.CommandList.RenderTarget, Color.Green);
             drawContext.CommandList.Clear(drawContext.CommandList.DepthStencilBuffer, DepthStencilClearOptions.DepthBuffer);
 
-            //myCustomShader.Parameters.Set(TransformationKeys.WorldViewProjection, viewprojection * WorldMatrix);
+            myCustomShader.Parameters.Set(TransformationKeys.WorldViewProjection, WorldMatrix);
             myCustomShader.Parameters.Set(test_shader1Keys.Color, Color.Red);
 
             pipelineState.State.RootSignature = myCustomShader.RootSignature;
